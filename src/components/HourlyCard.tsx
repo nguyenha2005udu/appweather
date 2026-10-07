@@ -28,15 +28,20 @@ export function HourlyCard({ hour, onPress }: HourlyCardProps) {
 const styles = StyleSheet.create({
   card: {
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.12)",
-    borderColor: "rgba(255,255,255,0.14)",
+    backgroundColor: "rgba(15,23,42,0.34)",
+    borderColor: "rgba(255,255,255,0.18)",
     borderRadius: 8,
     borderWidth: 1,
-    gap: 10,
-    height: 132,
+    elevation: 4,
+    gap: 9,
+    height: 140,
     justifyContent: "center",
-    marginRight: 10,
-    width: 76
+    marginRight: 12,
+    shadowColor: "#020617",
+    shadowOffset: { height: 8, width: 0 },
+    shadowOpacity: 0.14,
+    shadowRadius: 12,
+    width: 82
   },
   pressed: {
     opacity: 0.75,
@@ -49,8 +54,12 @@ const styles = StyleSheet.create({
   },
   rainRow: {
     alignItems: "center",
+    backgroundColor: "rgba(103,232,249,0.12)",
+    borderRadius: 8,
     flexDirection: "row",
-    gap: 3
+    gap: 3,
+    paddingHorizontal: 7,
+    paddingVertical: 4
   },
   rainIcon: {
     fontSize: 11,
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
   },
   temp: {
     color: "#FFFFFF",
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: "800"
   },
   time: {
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   weatherIcon: {
-    fontSize: 27,
-    lineHeight: 31
+    fontSize: 30,
+    lineHeight: 34
   }
 });

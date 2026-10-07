@@ -21,7 +21,7 @@ import { requestCurrentLocation } from "../services/location";
 import { RootStackParamList } from "../types/navigation";
 import { WeatherBundle } from "../types/weather";
 import { currentToDetail, dailyToDetail, hourlyToDetail } from "../utils/details";
-import { formatLongDate, roundTemp } from "../utils/format";
+import { formatHour, formatLongDate, roundTemp } from "../utils/format";
 import { getWeatherMeta } from "../utils/weatherCodes";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -122,7 +122,7 @@ export function HomeScreen({ navigation }: Props) {
 
             <TouchableOpacity
               activeOpacity={0.9}
-              style={styles.hero}
+              style={styles.heroCard}
               onPress={() =>
                 navigation.navigate("Detail", {
                   title: "Thời tiết hiện tại",
@@ -131,16 +131,34 @@ export function HomeScreen({ navigation }: Props) {
                 })
               }
             >
-              <View style={styles.heroIcon}>
-                <Text style={styles.heroWeatherIcon}>{meta.icon}</Text>
+              <View style={styles.heroTopRow}>
+                <View>
+                  <Text style={styles.date}>{formatLongDate(weather.current.time)}</Text>
+                  <Text style={styles.condition}>{meta.label}</Text>
+                </View>
+                <View style={styles.heroIcon}>
+                  <Text style={styles.heroWeatherIcon}>{meta.icon}</Text>
+                </View>
               </View>
-              <Text style={styles.date}>{formatLongDate(weather.current.time)}</Text>
-              <Text style={styles.temperature}>{roundTemp(weather.current.temperature)}</Text>
-              <Text style={styles.condition}>{meta.label}</Text>
+
+              <View style={styles.temperatureRow}>
+                <Text style={styles.temperature}>{roundTemp(weather.current.temperature)}</Text>
+                <View style={styles.feelsBlock}>
+                  <Text style={styles.feelsLabel}>Cảm nhận</Text>
+                  <Text style={styles.feelsValue}>{roundTemp(weather.current.apparentTemperature)}</Text>
+                </View>
+              </View>
+
               <View style={styles.tempLine}>
                 <Text style={styles.tempLineText}>Cao {roundTemp(weather.current.high)}</Text>
                 <Text style={styles.tempLineText}>Thấp {roundTemp(weather.current.low)}</Text>
-                <Text style={styles.tempLineText}>Cảm nhận {roundTemp(weather.current.apparentTemperature)}</Text>
+                <Text style={styles.tempLineText}>Cập nhật {formatHour(weather.current.time)}</Text>
+              </View>
+
+              <View style={styles.quickStats}>
+                <MiniStat label="Độ ẩm" value={`${weather.current.humidity}%`} icon="💧" />
+                <MiniStat label="Gió" value={`${Math.round(weather.current.windSpeed)} km/h`} icon="🌬️" />
+                <MiniStat label="UV" value={weather.current.uvIndex.toFixed(1)} icon="☀️" />
               </View>
             </TouchableOpacity>
 
@@ -190,7 +208,26 @@ export function HomeScreen({ navigation }: Props) {
 }
 
 function SectionTitle({ title }: { title: string }) {
-  return <Text style={styles.sectionTitle}>{title}</Text>;
+  return (
+    <View style={styles.sectionHeader}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      <View style={styles.sectionRule} />
+    </View>
+  );
+}
+
+function MiniStat({ label, value, icon }: { label: string; value: string; icon: string }) {
+  return (
+    <View style={styles.miniStat}>
+      <Text style={styles.miniIcon}>{icon}</Text>
+      <View style={styles.miniTextBlock}>
+        <Text style={styles.miniLabel}>{label}</Text>
+        <Text style={styles.miniValue} numberOfLines={1} adjustsFontSizeToFit>
+          {value}
+        </Text>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -199,38 +236,72 @@ const styles = StyleSheet.create({
   },
   condition: {
     color: "#F8FAFC",
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "800",
-    marginTop: 6
+    marginTop: 6,
+    maxWidth: 190
   },
   content: {
-    paddingBottom: 34,
-    paddingHorizontal: 18
+    paddingBottom: 36,
+    paddingHorizontal: 16
   },
   date: {
-    color: "#DCEBFF",
+    color: "rgba(248,250,252,0.78)",
     fontSize: 14,
-    fontWeight: "700",
-    marginTop: 14
+    fontWeight: "700"
   },
-  hero: {
-    alignItems: "center",
-    paddingBottom: 22,
-    paddingTop: 28
+  feelsBlock: {
+    alignItems: "flex-start",
+    backgroundColor: "rgba(255,255,255,0.14)",
+    borderColor: "rgba(255,255,255,0.16)",
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 10
+  },
+  feelsLabel: {
+    color: "rgba(248,250,252,0.72)",
+    fontSize: 12,
+    fontWeight: "700"
+  },
+  feelsValue: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "900",
+    marginTop: 2
+  },
+  heroCard: {
+    backgroundColor: "rgba(15,23,42,0.26)",
+    borderColor: "rgba(255,255,255,0.22)",
+    borderRadius: 8,
+    borderWidth: 1,
+    elevation: 10,
+    marginTop: 18,
+    overflow: "hidden",
+    padding: 18,
+    shadowColor: "#020617",
+    shadowOffset: { height: 14, width: 0 },
+    shadowOpacity: 0.18,
+    shadowRadius: 18
   },
   heroIcon: {
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.14)",
-    borderColor: "rgba(255,255,255,0.20)",
+    backgroundColor: "rgba(255,255,255,0.18)",
+    borderColor: "rgba(255,255,255,0.22)",
     borderRadius: 8,
     borderWidth: 1,
-    height: 116,
+    height: 92,
     justifyContent: "center",
-    width: 116
+    width: 92
+  },
+  heroTopRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   heroWeatherIcon: {
-    fontSize: 68,
-    lineHeight: 76
+    fontSize: 54,
+    lineHeight: 64
   },
   hourlyList: {
     paddingBottom: 8
@@ -252,8 +323,8 @@ const styles = StyleSheet.create({
   location: {
     color: "#F8FAFC",
     flex: 1,
-    fontSize: 16,
-    fontWeight: "800"
+    fontSize: 17,
+    fontWeight: "900"
   },
   locationRow: {
     alignItems: "center",
@@ -268,6 +339,37 @@ const styles = StyleSheet.create({
     gap: 12,
     justifyContent: "space-between",
     marginBottom: 8
+  },
+  miniIcon: {
+    fontSize: 18,
+    lineHeight: 24
+  },
+  miniLabel: {
+    color: "rgba(248,250,252,0.66)",
+    fontSize: 11,
+    fontWeight: "700"
+  },
+  miniStat: {
+    alignItems: "center",
+    backgroundColor: "rgba(2,6,23,0.22)",
+    borderColor: "rgba(255,255,255,0.12)",
+    borderRadius: 8,
+    borderWidth: 1,
+    elevation: 2,
+    flexDirection: "row",
+    gap: 8,
+    minHeight: 58,
+    paddingHorizontal: 10,
+    width: "31%"
+  },
+  miniTextBlock: {
+    flex: 1
+  },
+  miniValue: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "900",
+    marginTop: 2
   },
   notice: {
     alignItems: "center",
@@ -294,6 +396,18 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1
   },
+  sectionHeader: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 12,
+    marginBottom: 12,
+    marginTop: 24
+  },
+  sectionRule: {
+    backgroundColor: "rgba(255,255,255,0.22)",
+    flex: 1,
+    height: 1
+  },
   screen: {
     backgroundColor: "#0F172A",
     flex: 1
@@ -301,9 +415,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: "900",
-    marginBottom: 12,
-    marginTop: 22
+    fontWeight: "900"
   },
   tempLine: {
     flexDirection: "row",
@@ -313,7 +425,7 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   tempLineText: {
-    backgroundColor: "rgba(255,255,255,0.12)",
+    backgroundColor: "rgba(255,255,255,0.15)",
     borderRadius: 8,
     color: "#F8FAFC",
     fontSize: 13,
@@ -324,11 +436,16 @@ const styles = StyleSheet.create({
   },
   temperature: {
     color: "#FFFFFF",
-    fontSize: 86,
+    fontSize: 88,
     fontWeight: "900",
     letterSpacing: 0,
-    lineHeight: 96,
-    marginTop: 4
+    lineHeight: 98
+  },
+  temperatureRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 18
   },
   topBar: {
     alignItems: "center",
@@ -339,5 +456,10 @@ const styles = StyleSheet.create({
   topIcon: {
     fontSize: 16,
     lineHeight: 20
+  },
+  quickStats: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 16
   }
 });

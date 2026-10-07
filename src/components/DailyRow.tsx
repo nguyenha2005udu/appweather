@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     minWidth: 88
   },
   desc: {
-    color: "#CBD5E1",
+    color: "rgba(226,232,240,0.76)",
     fontSize: 12,
     marginTop: 3
   },
@@ -52,9 +52,13 @@ const styles = StyleSheet.create({
   },
   rain: {
     alignItems: "center",
+    backgroundColor: "rgba(103,232,249,0.12)",
+    borderRadius: 8,
     flexDirection: "row",
     gap: 3,
     justifyContent: "flex-end",
+    paddingHorizontal: 7,
+    paddingVertical: 5,
     width: 54
   },
   rainText: {
@@ -68,15 +72,20 @@ const styles = StyleSheet.create({
   },
   row: {
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.10)",
-    borderColor: "rgba(255,255,255,0.10)",
+    backgroundColor: "rgba(15,23,42,0.34)",
+    borderColor: "rgba(255,255,255,0.16)",
     borderRadius: 8,
     borderWidth: 1,
+    elevation: 3,
     flexDirection: "row",
     gap: 12,
     marginBottom: 10,
     minHeight: 72,
-    paddingHorizontal: 14
+    paddingHorizontal: 14,
+    shadowColor: "#020617",
+    shadowOffset: { height: 8, width: 0 },
+    shadowOpacity: 0.10,
+    shadowRadius: 10
   },
   temp: {
     color: "#F8FAFC",

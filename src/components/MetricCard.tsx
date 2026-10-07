@@ -18,21 +18,28 @@ export function MetricCard({ metric }: { metric: WeatherMetric }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "rgba(15, 23, 42, 0.58)",
-    borderColor: "rgba(255,255,255,0.10)",
+    backgroundColor: "rgba(15, 23, 42, 0.48)",
+    borderColor: "rgba(255,255,255,0.16)",
     borderRadius: 8,
     borderWidth: 1,
-    minHeight: 116,
-    padding: 14,
+    elevation: 4,
+    minHeight: 122,
+    padding: 15,
+    shadowColor: "#020617",
+    shadowOffset: { height: 8, width: 0 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
     width: "48%"
   },
   iconWrap: {
     alignItems: "center",
+    borderColor: "rgba(255,255,255,0.08)",
+    borderWidth: 1,
     borderRadius: 8,
-    height: 34,
+    height: 38,
     justifyContent: "center",
     marginBottom: 10,
-    width: 34
+    width: 38
   },
   icon: {
     fontSize: 18,
@@ -45,7 +52,7 @@ const styles = StyleSheet.create({
   },
   value: {
     color: "#F8FAFC",
-    fontSize: 22,
+    fontSize: 23,
     fontWeight: "800",
     marginTop: 6
   }

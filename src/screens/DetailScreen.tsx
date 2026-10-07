@@ -28,11 +28,14 @@ export function DetailScreen({ navigation, route }: Props) {
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
-          <View style={styles.summaryBlock}>
+          <View style={styles.summaryCard}>
             <View style={styles.iconWrap}>
               <Text style={styles.detailWeatherIcon}>{detail.icon}</Text>
             </View>
-            <Text style={styles.summary}>{detail.summary}</Text>
+            <View style={styles.summaryTextBlock}>
+              <Text style={styles.summaryEyebrow}>Tổng quan</Text>
+              <Text style={styles.summary}>{detail.summary}</Text>
+            </View>
           </View>
 
           <Text style={styles.sectionTitle}>Thông tin chi tiết</Text>
@@ -50,7 +53,7 @@ export function DetailScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   backButton: {
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.13)",
+    backgroundColor: "rgba(255,255,255,0.16)",
     borderRadius: 8,
     flexDirection: "row",
     gap: 4,
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: 32,
-    paddingHorizontal: 18
+    paddingHorizontal: 16
   },
   detailWeatherIcon: {
     fontSize: 62,
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     gap: 12,
-    paddingHorizontal: 18,
+    paddingHorizontal: 16,
     paddingTop: 8
   },
   headerText: {
@@ -89,8 +92,8 @@ const styles = StyleSheet.create({
   },
   iconWrap: {
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.14)",
-    borderColor: "rgba(255,255,255,0.18)",
+    backgroundColor: "rgba(255,255,255,0.16)",
+    borderColor: "rgba(255,255,255,0.22)",
     borderRadius: 8,
     borderWidth: 1,
     height: 108,
@@ -124,16 +127,35 @@ const styles = StyleSheet.create({
   },
   summary: {
     color: "#F8FAFC",
-    flex: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "800",
     lineHeight: 26
   },
-  summaryBlock: {
+  summaryCard: {
     alignItems: "center",
+    backgroundColor: "rgba(15,23,42,0.38)",
+    borderColor: "rgba(255,255,255,0.18)",
+    borderRadius: 8,
+    borderWidth: 1,
+    elevation: 8,
     flexDirection: "row",
     gap: 18,
-    marginTop: 28
+    marginTop: 28,
+    padding: 16,
+    shadowColor: "#020617",
+    shadowOffset: { height: 12, width: 0 },
+    shadowOpacity: 0.16,
+    shadowRadius: 16
+  },
+  summaryEyebrow: {
+    color: "rgba(226,232,240,0.72)",
+    fontSize: 12,
+    fontWeight: "800",
+    marginBottom: 5,
+    textTransform: "uppercase"
+  },
+  summaryTextBlock: {
+    flex: 1
   },
   title: {
     color: "#FFFFFF",
