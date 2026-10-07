@@ -1,0 +1,41 @@
+{
+  "name": "weather-now",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "start:reset": "react-native start --reset-cache",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "ios:simulator": "react-native run-ios --simulator \"iPhone 17\"",
+    "ios:reset": "react-native run-ios --reset-cache",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-native-community/geolocation": "^3.4.0",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.11.0",
+    "react": "18.3.1",
+    "react-native": "0.76.5",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-reanimated": "~3.16.1",
+    "react-native-safe-area-context": "4.12.0",
+    "react-native-screens": "~4.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@react-native/babel-preset": "0.76.5",
+    "@react-native-community/cli": "15.0.1",
+    "@react-native-community/cli-platform-android": "15.0.1",
+    "@react-native-community/cli-platform-ios": "15.0.1",
+    "@react-native/eslint-config": "0.76.5",
+    "@react-native/metro-config": "0.76.5",
+    "@react-native/typescript-config": "0.76.5",
+    "@types/react": "~18.3.12",
+    "eslint": "^8.57.1",
+    "prettier": "2.8.8",
+    "typescript": "^5.3.3"
+  }
+}
