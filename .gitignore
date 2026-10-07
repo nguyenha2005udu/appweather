@@ -2,12 +2,12 @@ node_modules/
 android/.gradle/
 android/build/
 android/app/build/
+android/app/.cxx/
+android/local.properties
 ios/Pods/
 ios/build/
 *.apk
-*.aabnode_modules
-
-
+*.aab
 
 
 
